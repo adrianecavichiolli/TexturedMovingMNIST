@@ -1,6 +1,6 @@
 """
-    mmnist_plus.py
-    ~~~~~~~~~~~~~~
+    textured_moving_mnist.py
+    ~~~~~~~~~~~~~~~~~~~~~~~~
 
     Dataset class for Moving MNIST plus.
     
@@ -25,8 +25,8 @@ from torch.utils.data import Dataset
 # Set random seed
 random_seed = 1337
 rng = np.random.RandomState(random_seed)
-data_dir = 'put_your_data_dir_here'
-textures_dir = 'put_your_textures_dir_here'
+data_dir = 'mnist'
+textures_dir = 'textures'
 
 
 def load_dataset():
@@ -169,9 +169,9 @@ def emboss_img(img, patch_arr):
     return img
 
 
-class MMNISTPlus(Dataset):
+class TexturedMovingMNIST(Dataset):
     """
-    Moving MNIST + dataset class.
+    Textured Moving MNIST dataset.
     Generates a random example each time __getitem__ is called.
     """
     def __init__(self, seq_len, img_size, split, num_digits=1, 
@@ -278,3 +278,14 @@ class MMNISTPlus(Dataset):
     
     def __len__(self):
         return 10000  # This can be modified to any length
+
+
+def test():
+    dataset = TexturedMovingMNIST(20, 64, 'train', num_digits=2)
+    img = dataset[0]
+    print(img)
+    import pdb; pdb.set_trace()
+
+if __name__ == '__main__':
+    test()
+
